@@ -1,115 +1,92 @@
 /*
-* clock.h
+* Clock.h
 *
 * Authors: Kamaleshwar & Sumedha 
 */
-#ifndef WATER_H
-#define WATER_H
+
+#ifndef CLOCK_H
+#define CLOCK_H
+#include <vector>
 #include<iostream>
 #include"puzzle.h"
+#include<cstdlib>
 
 using namespace std;
 
-class water:public puzzle< vector<int> >
+class Clock :public puzzle<int>
 {
+	
 private:
-	int goal;
-	vector<int> buckets;	
+	int num_of_hours;
+	int current_time;
+	int goal_time;
 	
 public:
-	water();
 
-	water(const char** argv,int argc){
-	
-		
-		goal=atoi(argv[1]);		
-		for(int i=2;i<argc;i++)
-		{
-			buckets.push_back(atoi(argv[i]));
-		}
-	};
-	
-	bool goalReached(vector<int>&);
-	
-	vector<int> getInitCongif();	
+	 Clock(int total,int currtime,int goal):num_of_hours(total),current_time(currtime),
+		goal_time(goal){};
 
-	vector< vector<int> > getNextAttempts(vector<int>&);
+	bool goalReached(int&);
+	
+	int getInitCongif();	
+
+	vector<int> getNextAttempts(int&);
 	
 };
 
-vector<int> water::getInitCongif()
+int Clock::getInitCongif()
 	{
-		vector<int> initconfig;
-
-		for(int i=0;i<buckets.size();i++)
-		{		
-			
-			initconfig.push_back(0);
+		if(this->current_time<=this->num_of_hours && this->current_time>0)
+		{
+			return (this->current_time);
+		}
+		else
+		{
+			cout<<"Invalid input time"<<endl;
+			exit(1);
 		}
 		
-		return initconfig;
+	}
+bool Clock::goalReached(int& config)
+	{
+	
+		if(this->goal_time==config)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
-bool water::goalReached(vector<int>& config)
+//similar to the one explained in class 
+vector<int>Clock::getNextAttempts(int& config)
 	{
-		bool result=false;
-
-		for(vector<int>::iterator it=config.begin();it!=config.end();++it)
+		vector<int> trials;
+		int subsol1,subsol2;
+		if(config>1 && config< num_of_hours)
 		{
-			if(*it==this->goal)
-			{				
-				result=true;
+			subsol1=config-1;
+			subsol2=config+1;
+		}
+		else
+		{
+			if(config==1)
+			{
+				subsol1=num_of_hours;
+				subsol2=config+1;
+			}
+			else
+			{
+				subsol1=config-1;
+				subsol2=1;
 			}
 		}
-			return result;
-		
+
+		trials.push_back(subsol1);
+		trials.push_back(subsol2);
+		return trials;
 	}
 
-
-vector< vector<int> >water::getNextAttempts(vector<int>& config)
-	{
-		vector< vector<int> > nextTrials;
-		vector<int> nextifempty;
-		vector<int> nextifnotempty;
-		vector<int> next;
-		for(int i=0;i<config.size();i++)
-		{
-			if(config.at(i)==0)
-			{
-				nextifempty=config;		
-				nextifempty.at(i)=buckets.at(i);
-				nextTrials.push_back(nextifempty);
-			}
-
-			if(config.at(i)!=0)
-			{
-				nextifnotempty=config;
-				nextifnotempty.at(i)=0;
-				nextTrials.push_back(nextifnotempty);
-			}
-		
-			for(int j=0;j<config.size();j++)
-			{
-				next=config;
-				int quantity;
-				quantity=buckets.at(j)-config.at(j);
-
-					if(quantity<config.at(i))
-						{
-						next.at(j)=next.at(j)+quantity;						
-						next.at(i)=next.at(i)-quantity;
-						nextTrials.push_back(next);					
-						}
-
-					else
-					{
-						next.at(j)=next.at(j)+config.at(i);						
-						next.at(i)=next.at(i)-config.at(i);
-						nextTrials.push_back(next);					
-					}
-				}
-			}	
-		return nextTrials;
-	}
 #endif
-
