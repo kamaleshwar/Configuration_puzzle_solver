@@ -12,7 +12,7 @@ forward or backward one hour at a time (called a step). There are three paramete
 The program is run from the command line as:
 
    ` g++ clock.cpp`
-	 `./a.out {hours} {start} {goal}`
+   `./a.out {hours} {start} {goal}`
 
 The program displays,the shortest number of steps it takes to get from the start to the goal
 time. For example:
@@ -35,7 +35,7 @@ third argument: quantity of container 2
 The program is run from the command line as:
 
   `g++ water.cpp`
-	`>./a.out {goal} {quantity of jug1} {quantity of jug2}`
+  `./a.out {goal} {quantity of jug1} {quantity of jug2}`
 
 
 
