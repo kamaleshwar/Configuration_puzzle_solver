@@ -34,7 +34,7 @@ third argument: quantity of container 2
 
 The program is run from the command line as:
 
-  `g++ water.cpp`
+  `g++ water.cpp`</br>
   `./a.out {goal} {quantity of jug1} {quantity of jug2}`
 
 
@@ -50,6 +50,6 @@ If the both the arguments are "-" then input and output is read and displayed by
 
 The program is run from the command line as:
 
-  `g++ lloyd.cpp`
-	`./a.out inputfile outputfile`
+  `g++ lloyd.cpp`</br>
+   `./a.out inputfile outputfile`
 	
