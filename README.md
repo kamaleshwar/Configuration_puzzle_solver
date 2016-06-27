@@ -11,7 +11,7 @@ forward or backward one hour at a time (called a step). There are three paramete
 
 The program is run from the command line as:
 
-   ` g++ clock.cpp`
+   ` g++ clock.cpp`</br>
    `./a.out {hours} {start} {goal}`
 
 The program displays,the shortest number of steps it takes to get from the start to the goal
